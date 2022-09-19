@@ -1,6 +1,6 @@
-# Ansible Arch Linux
+# Ansible Windows
 
-![Logo](https://i.imgur.com/5BJIQHk.png)
+![Logo](https://i.imgur.com/SkSns0O.png)
 
 [Learning ansible?](https://www.youtube.com/watch?v=goclfp6a2IQ&list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN)
 
@@ -26,7 +26,7 @@ To have a dedicated place where to write prefered applications, services, settin
 On windows
 
 * install ansible and git - `sudo pacman -S ansible git`
-* clone this repo - `git clone https://github.com/DoTheEvo/ansible-arch.git`
+* clone this repo - `git clone https://github.com/DoTheEvo/ansible-win.git`
 * enter the directory - `cd ansible`
 * run the playbooks you want
     * `ansible-playbook -u $USER -K playbook_core.yml`
