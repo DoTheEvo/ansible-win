@@ -4,16 +4,7 @@
   gather_facts: no
 
   tasks:
-    # - win_chocolatey:
-    #     name: ublockorigin-chrome
-    #     state: present
+    - win_chocolatey:
+        name: peazip
+        state: present
 
-    - name: Create registry path MyCompany
-      ansible.windows.win_regedit:
-        path: HKCU:\Software\MyCompany
-
-    - name: Add or update registry path MyCompany, with entry 'hello', and containing 'world'
-      ansible.windows.win_regedit:
-        path: HKCU:\Software\MyCompany
-        name: hello
-        data: world
