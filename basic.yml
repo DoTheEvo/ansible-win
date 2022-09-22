@@ -1,0 +1,38 @@
+---
+- name: test
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    # - name: Install 7zip
+    #   win_chocolatey:
+    #     name: 7zip
+    #     state: present
+
+    - name: 7zip settings - cascade menu turn off
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: CascadedMenu
+        data: 00000000
+        type: dword
+
+    - name: 7zip settings - eliminate duplicates
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: ElimDupExtract
+        data: 00000001
+        type: dword
+
+    - name: 7zip settings - icons in context menu
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: MenuIcons
+        data: 00000001
+        type: dword
+
+    - name: 7zip settings - leave only 3 items in context menu
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: ContextMenu
+        data: 00001004
+        type: dword

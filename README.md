@@ -23,7 +23,16 @@ To have a dedicated place where to write prefered applications, services, settin
 
 # How to execute
 
-On windows
+On windows host 
+
+[ConfigureRemotingForAnsible.ps1](https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1)
+
+    $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+    $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+
+    (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+
+    powershell.exe -ExecutionPolicy ByPass -File $file
 
 * install ansible and git - `sudo pacman -S ansible git`
 * clone this repo - `git clone https://github.com/DoTheEvo/ansible-win.git`
