@@ -1,0 +1,17 @@
+---
+- name: CDBURNERXP
+  hosts: all
+  gather_facts: yes
+  vars:
+    cdburnerxp_icon: 'C:\Users\Public\Desktop\CDBurnerXP.lnk'
+
+  tasks:
+    - name: CDBURNERXP - install cdburnerxp using chocolatey
+      win_chocolatey:
+        name: cdburnerxp
+        state: present
+
+    - name: CDBURNERXP - remove desktop link if present
+      win_file:
+        path: '{{ cdburnerxp_icon }}'
+        state: absent

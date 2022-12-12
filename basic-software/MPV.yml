@@ -1,0 +1,36 @@
+---
+- name: MPV
+  hosts: all
+  gather_facts: yes
+  vars:
+    mpv_programfiles: 'C:\ProgramData\chocolatey\lib\mpvio.install\tools'
+
+  tasks:
+    - name: MPV - install mpv using chocolatey
+      win_chocolatey:
+        name: mpvio
+        state: present
+
+    - name: MPV - copy langauge files in to programfiles folder
+      win_copy:
+        src: ./MPV/portable_config
+        dest: '{{ mpv_programfiles }}'
+
+    - name: MPV - SUBTITLES PLUGIN - install python using chocolatey
+      win_chocolatey:
+        name: python
+        state: present
+
+    - name: MPV - SUBTITLES PLUGIN - install subliminal usin pip
+      win_command: pip install subliminal
+
+    - name: MPV - SUBTITLES PLUGIN - install ffmpeg using chocolatey
+      win_chocolatey:
+        name: ffmpeg
+        state: present
+
+    - name: MPV - SUBTITLES PLUGIN - install ffsubsync usin pip
+      win_command: pip install ffsubsync
+
+    - name: MPV - SUBTITLES PLUGIN - install subliminal usin pip
+      win_command: pip install ffsubsync

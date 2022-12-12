@@ -1,0 +1,11 @@
+---
+- name: CHROME
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: CHROME - install googlechrome using chocolatey
+      win_chocolatey:
+        name: googlechrome
+        state: present
+

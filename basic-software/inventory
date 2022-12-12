@@ -1,0 +1,12 @@
+[win]
+10.0.19.54
+
+[all:vars]
+ansible_user=dov
+ansible_password=aaa
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+# ansible_winrm_transport=basic
+# ansible_connection=ssh
+# ansible_ssh_pass=aaa
+# ansible_sudo_pass=aaa

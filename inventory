@@ -2,7 +2,7 @@
 10.0.19.54
 
 [all:vars]
-ansible_user=ansible
+ansible_user=dov
 ansible_password=aaa
 ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore

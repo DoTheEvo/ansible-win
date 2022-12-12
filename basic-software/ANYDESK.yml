@@ -1,0 +1,22 @@
+---
+- name: ANYDESK
+  hosts: all
+  gather_facts: yes
+  vars:
+    anydesk_icon: 'C:\Users\Public\Desktop\AnyDesk MSI.lnk'
+
+  tasks:
+    - name: ANYDESK - install anydesk using chocolatey
+      win_chocolatey:
+        name: anydesk.install
+        state: present
+
+    - name: ANYDESK - disable service automatic start
+      win_service:
+        name: AnyDeskMSI
+        start_mode: disabled
+
+    - name: ANYDESK - remove desktop link if present
+      win_file:
+        path: '{{ anydesk_icon }}'
+        state: absent

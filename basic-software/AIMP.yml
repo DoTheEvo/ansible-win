@@ -1,0 +1,47 @@
+---
+- name: AIMP
+  hosts: all
+  gather_facts: yes
+  vars:
+    aimp_conf_dir: '{{ ansible_facts.env.APPDATA }}\AIMP'
+    aimp_conf_dir2: '{{ ansible_facts.env.APPDATA }}\AIMP2'
+    aimp_icon: 'C:\Users\Public\Desktop\Aimp.lnk'
+
+  tasks:
+    - name: AIMP - install aimp using chocolatey
+      win_chocolatey:
+        name: aimp
+        state: present
+
+    - name: AIMP - check if config folder exists
+      win_stat:
+        path: '{{ aimp_conf_dir }}'
+      register: aimp_roaming_folder
+
+    - name: AIMP - copy the existing folder to AIMP2
+      win_copy:
+        src: '{{ aimp_conf_dir }}'
+        dest: '{{ aimp_conf_dir2 }}'
+        remote_src: yes
+      when: aimp_roaming_folder.stat.exists
+
+    - name: AIMP - remove the config folder
+      win_file:
+        path: '{{ aimp_conf_dir }}'
+        state: absent
+      when: aimp_roaming_folder.stat.exists
+
+    - name: AIMP - copy zipped config folder
+      win_copy:
+        src: ./AIMP/AIMP.zip
+        dest: '{{ ansible_facts.env.APPDATA }}'
+
+    - name: AIMP - unzip preconfigured folder to %APPDATA%
+      win_unzip:
+        src: '{{ ansible_facts.env.APPDATA }}\AIMP.zip'
+        dest: '{{ ansible_facts.env.APPDATA }}'
+
+    - name: AIMP - remove desktop link if present
+      win_file:
+        path: '{{ aimp_icon }}'
+        state: absent

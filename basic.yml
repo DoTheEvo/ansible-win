@@ -4,10 +4,10 @@
   gather_facts: no
 
   tasks:
-    # - name: Install 7zip
-    #   win_chocolatey:
-    #     name: 7zip
-    #     state: present
+    - name: Install 7zip
+      win_chocolatey:
+        name: 7zip
+        state: present
 
     - name: 7zip settings - cascade menu turn off
       win_regedit:

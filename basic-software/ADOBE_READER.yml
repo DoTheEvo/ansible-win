@@ -1,0 +1,31 @@
+---
+- name: ADOBE_READER
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: ADOBE_READER - install adobe reader using chocolatey
+      win_chocolatey:
+        name: adobereader
+        state: present
+
+    - name: ADOBE_READER - set default zoom 100%
+      win_regedit:
+        path: HKCU:\Software\Adobe\Acrobat Reader\DC\Originals
+        name: iDefaultZoomType
+        data: 0
+        type: dword
+
+    - name: ADOBE_READER - remember tools pane position
+      win_regedit:
+        path: HKCU:\Software\Adobe\Acrobat Reader\DC\AVGeneral
+        name: bRHPSticky
+        data: 1
+        type: dword
+
+    - name: ADOBE_READER - hide tools pane
+      win_regedit:
+        path: HKCU:\Software\Adobe\Acrobat Reader\DC\AVGeneral
+        name: aDefaultRHPViewMode_L
+        data: AppSwitcherOnly
+        type: string

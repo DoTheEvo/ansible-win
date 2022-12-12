@@ -1,0 +1,41 @@
+---
+- name: FIREFOX
+  hosts: all
+  gather_facts: yes
+  vars:
+    mozilla_conf_dir: '{{ ansible_facts.env.APPDATA }}\Mozilla'
+    mozilla_conf_dir2: '{{ ansible_facts.env.APPDATA }}\Mozilla2'
+
+  tasks:
+    - name: FIREFOX - install firefox using chocolatey
+      win_chocolatey:
+        name: firefox
+        state: present
+
+    - name: FIREFOX - check if config folder exists
+      win_stat:
+        path: '{{ mozilla_conf_dir }}'
+      register: mozilla_roaming_folder
+
+    - name: FIREFOX - copy the existing folder to Mozilla2
+      win_copy:
+        src: '{{ mozilla_conf_dir }}'
+        dest: '{{ mozilla_conf_dir2 }}'
+        remote_src: yes
+      when: mozilla_roaming_folder.stat.exists
+
+    - name: FIREFOX - remove the config folder
+      win_file:
+        path: '{{ mozilla_conf_dir }}'
+        state: absent
+      when: mozilla_roaming_folder.stat.exists
+
+    - name: FIREFOX - copy zipped config folder to %APPDATA%
+      win_copy:
+        src: ./FIREFOX/Mozilla.zip
+        dest: '{{ ansible_facts.env.APPDATA }}'
+
+    - name: FIREFOX - unzip preconfigured folder to %APPDATA%
+      win_unzip:
+        src: '{{ ansible_facts.env.APPDATA }}\Mozilla.zip'
+        dest: '{{ ansible_facts.env.APPDATA }}'

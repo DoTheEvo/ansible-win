@@ -1,0 +1,19 @@
+---
+- name: DOT_NET
+  hosts: all
+  gather_facts: yes
+  become: yes
+  become_method: runas
+  become_user: System
+
+  tasks:
+    - name: DOT_NET - install latest .NET core
+      win_chocolatey:
+        name: dotnet
+        state: present
+
+    - name: DOT_NET - enable .Net 3.5
+      win_optional_feature:
+        name: NetFx3
+        state: present
+

@@ -1,0 +1,17 @@
+---
+- name: RUN_ALL_PLAYBOOKS
+  hosts: all
+  gather_facts: yes
+
+- import_playbook: 7_ZIP.yml
+- import_playbook: ADOBE_READER.yml
+- import_playbook: AIMP.yml
+- import_playbook: ANYDESK.yml
+- import_playbook: CDBURNERXP.yml
+- import_playbook: CHROME.yml
+- import_playbook: DOT_NET.yml
+- import_playbook: EVERYTHING.yml
+- import_playbook: FIREFOX.yml
+- import_playbook: IRFANVIEW.yml
+
+

@@ -1,0 +1,50 @@
+---
+- name: 7_ZIP
+  hosts: all
+  gather_facts: yes
+  vars:
+    temp_folder: '{{ ansible_facts.env.TEMP }}'
+    temp_folder_msi: '{{ ansible_facts.env.TEMP }}\7z2201-x64.msi'
+
+  tasks:
+    - name: 7_ZIP - copy the install and associations file
+      win_copy:
+        src: '{{ item }}'
+        dest: '{{ temp_folder }}'
+      loop:
+        - ./7ZIP/7z2201-x64.msi
+        - ./7ZIP/associations.mst
+
+    - name: 7_ZIP - install 7zip with flags /Q and TRANSFORMS=associations.mst
+      win_package:
+        path: '{{ temp_folder_msi }}'
+        product_id: '{23170F69-40C1-2702-2201-000001000000}'
+        arguments: /Q TRANSFORMS=associations.mst
+
+    - name: 7_ZIP - settings - cascade menu turn off
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: CascadedMenu
+        data: 0
+        type: dword
+
+    - name: 7_ZIP - settings - eliminate duplicates
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: ElimDupExtract
+        data: 1
+        type: dword
+
+    - name: 7_ZIP - settings - icons in context menu
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: MenuIcons
+        data: 1
+        type: dword
+
+    - name: 7_ZIP - settings - leave only 3 items in context menu
+      win_regedit:
+        path: HKCU:\SOFTWARE\7-Zip\Options
+        name: ContextMenu
+        data: 4100
+        type: dword

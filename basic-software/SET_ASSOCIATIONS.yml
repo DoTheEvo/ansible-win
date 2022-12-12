@@ -1,0 +1,31 @@
+---
+- name: SET_ASSOCIATIONS
+  hosts: all
+  gather_facts: yes
+  vars:
+    programdata: '{{ ansible_facts.env.ProgramData }}'
+
+  tasks:
+    - name: IRFANVIEW - copy langauge files in to programfiles folder
+      win_copy:
+        src: '{{ item }}'
+        dest: '{{ programdata }}'
+      loop:
+        - SetUserFTA.exe
+        - Slovak.dll
+
+    - name: IRFANVIEW - install irfanview using chocolatey
+      win_chocolatey:
+        name: irfanview
+        state: present
+
+
+    - name: IRFANVIEW - copy webp plugin in to programfiles
+      win_copy:
+        src: WebP.dll
+        dest: '{{ irfan_programfiles_plugins }}'
+
+    - name: IRFANVIEW - copy config ini file in to appdata
+      win_copy:
+        src: i_view64.ini
+        dest: '{{ irfan_config_dir }}'
