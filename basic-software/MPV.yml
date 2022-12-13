@@ -11,7 +11,7 @@
         name: mpvio
         state: present
 
-    - name: MPV - copy langauge files in to programfiles folder
+    - name: MPV - copy config folder with scripts and settings
       win_copy:
         src: ./MPV/portable_config
         dest: '{{ mpv_programfiles }}'
@@ -29,8 +29,5 @@
         name: ffmpeg
         state: present
 
-    - name: MPV - SUBTITLES PLUGIN - install ffsubsync usin pip
-      win_command: pip install ffsubsync
-
-    - name: MPV - SUBTITLES PLUGIN - install subliminal usin pip
-      win_command: pip install ffsubsync
+    # - name: MPV - SUBTITLES PLUGIN - install ffsubsync usin pip
+    #   win_command: pip install ffsubsync

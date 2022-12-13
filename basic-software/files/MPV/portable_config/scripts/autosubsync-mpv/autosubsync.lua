@@ -20,11 +20,11 @@ local config = {
     -- If set to empty, the path will be guessed.
     ffmpeg_path = "",
     ffsubsync_path = "",
-    alass_path = "",
+    alass_path = "C:\\ProgramData\\chocolatey\\lib\\mpvio.install\\tools\\portable_config\\scripts\\autosubsync-mpv\\alass-cli.exe",
 
     -- Choose what tool to use. Allowed options: ffsubsync, alass, ask.
     -- If set to ask, the add-on will ask to choose the tool every time.
-    audio_subsync_tool = "ask",
+    audio_subsync_tool = "alass",
     altsub_subsync_tool = "ask",
 
     -- After retiming, tell mpv to forget the original subtitle track.

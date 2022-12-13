@@ -1,0 +1,11 @@
+---
+- name: NAPS2
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: NAPS2 - install naps2 using chocolatey
+      win_chocolatey:
+        name: naps2
+        state: present
+
