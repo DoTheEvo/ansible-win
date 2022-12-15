@@ -1,0 +1,25 @@
+---
+- name: SET_ASSOCIATIONS
+  hosts: all
+  gather_facts: yes
+  vars:
+    programdata: '{{ ansible_facts.env.ProgramData }}'
+
+  tasks:
+    - name: SET_ASSOCIATIONS - copy SetUserFTA.exe in to ProgramData
+      win_copy:
+        src: '{{ item }}'
+        dest: '{{ programdata }}'
+      loop:
+        - SetUserFTA.exe
+        - assoc_config.txt
+
+    - name: SET_ASSOCIATIONS - change associations based off config
+      win_shell: ./SetUserFTA.exe assoc_config.txt
+      args:
+        chdir: '{{ programdata }}'
+      register: output
+
+    - name: debu
+      debug:
+        var: output

@@ -2,6 +2,14 @@
 
 ![Logo](https://i.imgur.com/SkSns0O.png)
 
+-----------------
+
+**WORK IN PROGRESS**<br>
+**WORK IN PROGRESS**<br>
+**WORK IN PROGRESS**
+
+---------------
+
 [Learning ansible?](https://www.youtube.com/watch?v=goclfp6a2IQ&list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN)
 
 # Overview
@@ -22,6 +30,19 @@ BAM! Windonws is suddenly just like you want it.<br>
 To have a dedicated place where to write prefered applications, services, settings,..
 
 # How to execute
+
+
+win_copy
+
+If dest is a nonexistent path, it will only be created if dest ends with “/” or “\”, or src is a directory.
+
+??? maybe
+
+execute to get win_psexec working
+
+`ansible-galaxy collection install community.windows`
+
+??? maybe
 
 On windows host 
 

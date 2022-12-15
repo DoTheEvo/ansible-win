@@ -1,0 +1,65 @@
+---
+- name: WIN_10
+  hosts: all
+  gather_facts: yes
+  vars:
+    temp_folder: '{{ ansible_facts.env.TEMP }}'
+    the_script: '{{ ansible_facts.env.TEMP }}\StartMenuLayout.ps1'
+
+  tasks:
+
+    # REGISTRY SETTINGS CHANGES WHICH TURN OFF 3 NOTIFICATIONS IN
+    # SETTINGS > SYSTEM > NOTIFICATIONS > THE LAST 3 CHECKBOXES
+
+    - name: WIN_10 - notifications off - Get tips, tricks, and suggestions...
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        name: SubscribedContent-338389Enabled
+        data: 0
+        type: dword
+
+    - name: WIN_10 - notifications off - Suggest ways I can finish setting up my device to get the most out of Windows
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement
+        name: ScoobeSystemSettingEnabled
+        data: 0
+        type: dword
+
+    - name: WIN_10 - notifications off - Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        name: SubscribedContent-310093Enabled
+        data: 0
+        type: dword
+
+
+    # REMOVE SOME PREINSTALLED SOFTWARE
+
+    - name: WIN_10 - remove-apps
+      win_shell: Get-AppxPackage *'{{ item }}'* | Remove-AppxPackage
+      loop:
+        - SkypeApp
+        - FeedbackHub
+        - GetHelp
+        - Getstarted
+        - ZuneMusic
+        - ZuneVideo
+        - MixedReality
+        - Microsoft.People
+        - MicrosoftOfficeHub
+        - Microsoft.Office.OneNote
+        - 3DBuilder
+        - Microsoft3DViewer
+        - Microsoft.MSPaint
+
+    # START MENU CUSTOMIZATION
+
+    - name: WIN_10 - change startmenu pinned apps
+      win_copy:
+        src: StartMenuLayout.ps1
+        dest: '{{ temp_folder }}'
+
+    - name: Run basic PowerShell script
+      win_shell: '{{ the_script }}'
+
+

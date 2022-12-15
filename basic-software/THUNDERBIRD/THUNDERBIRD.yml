@@ -1,0 +1,17 @@
+---
+- name: THUNDERBIRD
+  hosts: all
+  gather_facts: yes
+  vars:
+    the_icon: 'C:\Users\Public\Desktop\Thunderbird.lnk'
+
+  tasks:
+    - name: THUNDERBIRD - install thunderbird using chocolatey
+      win_chocolatey:
+        name: thunderbird
+        state: present
+
+    - name: THUNDERBIRD - remove the desktop link if present
+      win_file:
+        path: '{{ the_icon }}'
+        state: absent

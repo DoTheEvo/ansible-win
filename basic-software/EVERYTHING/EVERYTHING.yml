@@ -13,6 +13,6 @@
 
     - name: EVERYTHING - copy the config file
       win_copy:
-        src: ./EVERYTHING/Everything.ini
+        src: Everything.ini
         dest: '{{ everything_conf_ini }}'
 

@@ -12,8 +12,8 @@
         src: '{{ item }}'
         dest: '{{ temp_folder }}'
       loop:
-        - ./7ZIP/7z2201-x64.msi
-        - ./7ZIP/associations.mst
+        - 7z2201-x64.msi
+        - associations.mst
 
     - name: 7_ZIP - install 7zip with flags /Q and TRANSFORMS=associations.mst
       win_package:

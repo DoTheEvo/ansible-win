@@ -1,0 +1,17 @@
+---
+- name: VLC
+  hosts: all
+  gather_facts: yes
+  vars:
+    the_icon: 'C:\Users\Public\Desktop\VLC media player.lnk'
+
+  tasks:
+    - name: VLC - install vlc using chocolatey
+      win_chocolatey:
+        name: vlc
+        state: present
+
+    - name: VLC - remove the desktop link if present
+      win_file:
+        path: '{{ the_icon }}'
+        state: absent

@@ -13,7 +13,7 @@
 
     - name: MPV - copy config folder with scripts and settings
       win_copy:
-        src: ./MPV/portable_config
+        src: portable_config
         dest: '{{ mpv_programfiles }}'
 
     - name: MPV - SUBTITLES PLUGIN - install python using chocolatey

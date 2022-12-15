@@ -1,0 +1,31 @@
+---
+- name: SKYPE
+  hosts: all
+  gather_facts: yes
+  vars:
+    the_icon: 'C:\Users\Public\Desktop\Skype.lnk'
+
+  tasks:
+    - name: SKYPE - install skype using chocolatey
+      win_chocolatey:
+        name: skype
+        state: present
+
+    # - name: SKYPE - start skype so that automatic startup can be turned off
+    #   ansible.windows.win_powershell:
+    #     script: |
+    #       Start-Process -FilePath 'C:\Program Files (x86)\Microsoft\Skype for Desktop\Skype.exe'
+    #       Start-Sleep -s 15
+    #       Stop-Process -name skype
+
+    - name: SKYPE - disable startup on boot
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run
+        name: Skype for Desktop
+        data: hex:03,00,00,00,b7,48,c2,61,25,0f,d9,01
+        type: binary
+
+    - name: SKYPE - remove desktop link if present
+      win_file:
+        path: '{{ the_icon }}'
+        state: absent

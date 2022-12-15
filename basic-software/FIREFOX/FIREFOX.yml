@@ -32,7 +32,7 @@
 
     - name: FIREFOX - copy zipped config folder to %APPDATA%
       win_copy:
-        src: ./FIREFOX/Mozilla.zip
+        src: Mozilla.zip
         dest: '{{ ansible_facts.env.APPDATA }}'
 
     - name: FIREFOX - unzip preconfigured folder to %APPDATA%

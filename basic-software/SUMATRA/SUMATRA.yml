@@ -1,0 +1,23 @@
+---
+- name: SUMATRA
+  hosts: all
+  gather_facts: yes
+  vars:
+    sumatra_config_dir: '{{ ansible_facts.env.LOCALAPPDATA }}\SumatraPDF\'
+    the_icon: 'C:\Users\Public\Desktop\SumatraPDF.lnk'
+
+  tasks:
+    - name: SUMATRA - install sumatrapdf using chocolatey
+      win_chocolatey:
+        name: sumatrapdf
+        state: present
+
+    - name: SUMATRA - copy the config file in to appdata
+      win_copy:
+        src: SumatraPDF-settings.txt
+        dest: '{{ sumatra_config_dir }}'
+
+    - name: SUMATRA - remove the desktop link if present
+      win_file:
+        path: '{{ the_icon }}'
+        state: absent

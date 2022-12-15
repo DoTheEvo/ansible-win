@@ -1,0 +1,56 @@
+---
+- name: TEAMS
+  hosts: all
+  gather_facts: yes
+  vars:
+    temp_folder: '{{ ansible_facts.env.TEMP }}'
+    the_script: '{{ ansible_facts.env.TEMP }}\disable_teams_start_on_boot.ps1'
+    # teams_json: '{{ ansible_facts.env.APPDATA }}\Microsoft\Teams\desktop-config.json'
+    # teams_exe: '{{ ansible_facts.env.LOCALAPPDATA }}\Microsoft\Teams\current\Teams.exe'
+
+  tasks:
+    - name: TEAMS - install teams using chocolatey
+      win_chocolatey:
+        name: microsoft-teams
+        state: present
+
+    - name: TEAMS - copy powershell script to temp
+      win_copy:
+        src: disable_teams_start_on_boot.ps1
+        dest: '{{ temp_folder }}'
+
+    - name: TEAMS - run powershell script that will disable teams autostart
+      win_shell: '{{ the_script }}'
+
+
+    # - name: TEAMS - install sysinternals psexec, to allow interactive execution
+    #   win_chocolatey:
+    #     name: psexec
+
+    # - name: TEAMS - start teams so that disabling automatic startup sticks
+    #   win_psexec:
+    #     chdir: C:\Users\dov
+    #     interactive: yes
+    #     system: yes
+    #     session: 1
+    #     command: C:\Users\dov\AppData\Local\Microsoft\Teams\current\Teams.exe
+    #   become_user: dov
+    #   register: results
+
+    # - name: Sleep for 10 seconds and continue with play
+    #   win_wait_for:
+    #     timeout: 10
+
+    # - name: TEAMS - disable startup on boot
+    #   win_regedit:
+    #     path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run
+    #     name: com.squirrel.Teams.Teams
+    #     data: hex:03,00,00,00,96,46,78,04,45,0f,d9,01
+    #     type: binary
+
+    # - name: TEAMS - start teams so that disabling automatic startup sticks
+    #   ansible.windows.win_powershell:
+    #     script: |
+    #       Start-Process -PassThru -FilePath 'C:\Users\dov\AppData\Local\Microsoft\Teams\current\Teams.exe'
+    #       Start-Sleep -s 15
+    #       Stop-Process -name teams

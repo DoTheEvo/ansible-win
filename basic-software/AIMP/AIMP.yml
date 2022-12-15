@@ -5,7 +5,7 @@
   vars:
     aimp_conf_dir: '{{ ansible_facts.env.APPDATA }}\AIMP'
     aimp_conf_dir2: '{{ ansible_facts.env.APPDATA }}\AIMP2'
-    aimp_icon: 'C:\Users\Public\Desktop\Aimp.lnk'
+    the_icon: 'C:\Users\Public\Desktop\Aimp.lnk'
 
   tasks:
     - name: AIMP - install aimp using chocolatey
@@ -33,7 +33,7 @@
 
     - name: AIMP - copy zipped config folder
       win_copy:
-        src: ./AIMP/AIMP.zip
+        src: AIMP.zip
         dest: '{{ ansible_facts.env.APPDATA }}'
 
     - name: AIMP - unzip preconfigured folder to %APPDATA%
@@ -41,7 +41,7 @@
         src: '{{ ansible_facts.env.APPDATA }}\AIMP.zip'
         dest: '{{ ansible_facts.env.APPDATA }}'
 
-    - name: AIMP - remove desktop link if present
+    - name: AIMP - remove the desktop link if present
       win_file:
-        path: '{{ aimp_icon }}'
+        path: '{{ the_icon }}'
         state: absent

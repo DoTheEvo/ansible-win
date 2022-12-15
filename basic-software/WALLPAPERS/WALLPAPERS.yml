@@ -1,0 +1,13 @@
+---
+- name: WALLPAPERS
+  hosts: all
+  gather_facts: yes
+  vars:
+    home_pics_folder: '{{ ansible_facts.env.HOMEPATH }}\Pictures'
+
+
+  tasks:
+    - name: WALLPAPERS - copy to ~\pictures
+      win_copy:
+        src: wallpapers
+        dest: '{{ home_pics_folder }}'

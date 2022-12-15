@@ -3,15 +3,25 @@
   hosts: all
   gather_facts: yes
 
-- import_playbook: 7_ZIP.yml
-- import_playbook: ADOBE_READER.yml
-- import_playbook: AIMP.yml
-- import_playbook: ANYDESK.yml
-- import_playbook: CDBURNERXP.yml
-- import_playbook: CHROME.yml
-- import_playbook: DOT_NET.yml
-- import_playbook: EVERYTHING.yml
-- import_playbook: FIREFOX.yml
-- import_playbook: IRFANVIEW.yml
+- import_playbook: ./7_ZIP/7_ZIP.yml
+- import_playbook: ./ADOBE_READER/ADOBE_READER.yml
+- import_playbook: ./AIMP/AIMP.yml
+- import_playbook: ./ANYDESK/ANYDESK.yml
+- import_playbook: ./CDBURNERXP/CDBURNERXP.yml
+- import_playbook: ./CHROME/CHROME.yml
+- import_playbook: ./DOT_NET/DOT_NET.yml
+- import_playbook: ./EVERYTHING/EVERYTHING.yml
+- import_playbook: ./FIREFOX/FIREFOX.yml
+- import_playbook: ./IRFANVIEW/IRFANVIEW.yml
+- import_playbook: ./MPV/MPV.yml
+- import_playbook: ./NAPS2/NAPS2.yml
+- import_playbook: ./SKYPE/SKYPE.yml
+- import_playbook: ./SUMATRA/SUMATRA.yml
+- import_playbook: ./TEAMS/TEAMS.yml
+- import_playbook: ./THUNDERBIRD/THUNDERBIRD.yml
+- import_playbook: ./VLC/VLC.yml
+- import_playbook: ./WALLPAPERS/WALLPAPERS.yml
+- import_playbook: ./WIN_10/WIN_10.yml
+- import_playbook: ./_SET_ASSOCIATIONS/_SET_ASSOCIATIONS.yml
 
 
