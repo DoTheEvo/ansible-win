@@ -31,6 +31,9 @@ To have a dedicated place where to write prefered applications, services, settin
 
 # How to execute
 
+basics, such paths and slashes to use 
+https://docs.ansible.com/ansible/2.5/user_guide/windows_usage.html
+
 
 win_copy
 

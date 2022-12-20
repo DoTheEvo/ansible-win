@@ -14,12 +14,17 @@
         - SetUserFTA.exe
         - assoc_config.txt
 
-    - name: SET_ASSOCIATIONS - change associations based off config
-      win_shell: ./SetUserFTA.exe assoc_config.txt
-      args:
-        chdir: '{{ programdata }}'
-      register: output
+    - name: SET_ASSOCIATIONS - install sysinternals psexec, to allow interactive execution
+      win_chocolatey:
+        name: psexec
 
-    - name: debu
-      debug:
-        var: output
+    - name: SET_ASSOCIATIONS -
+      win_psexec:
+        chdir: '{{ programdata }}'
+        interactive: yes
+        session: 1
+        command: C:\ProgramData\SetUserFTA.exe assoc_config.txt
+      become_user: '{{ ansible_facts.env.USERNAME }}'
+      register: results
+
+
